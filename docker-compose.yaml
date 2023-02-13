@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  groovy-app:
+    container_name: test14-app 
+    build: ./
+    depends_on:
+      - database
+    ports:
+      - "8080:8080" 
+
+  database:
+    image: mongo
+    container_name: database-test14
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+      - "27017:27017"

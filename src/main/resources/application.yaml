@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://admin:secret@database-test14:27017/test1?authSource=admin
+      database: test14-app
+springdoc:
+  api-docs:
+    path: /openapi
+
+app:
+  base:
+    url: "http://localhost:8080"
