@@ -1,6 +1,7 @@
 package com.example.test14.service.impl
 
 import com.example.test14.dto.UserDto
+import com.example.test14.model.Note
 import com.example.test14.model.User
 import com.example.test14.repository.UserRepository
 import com.example.test14.service.UserService
@@ -17,11 +18,17 @@ class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository
 
     @Override
-    void saveUser(UserDto userDto) {
+    List<User> findAllNotes() {
+        userRepository.findAll()
+    }
+
+    @Override
+    saveUser(UserDto userDto) {
         User userToSave = new User()
         userToSave.setUsername(userDto.getUsername())
         userToSave.setPassword(userDto.getPassword())
         userRepository.save(userToSave)
+
     }
 
     @Override

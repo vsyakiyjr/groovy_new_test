@@ -20,9 +20,22 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
+import groovy.transform.Immutable
+
+@Immutable
+class Test {
+    String name
+    String occupation
+}
 
 @RestController
 class UserController {
+
+    def test = [
+            new Test('John Doe', 'gardener'),
+            new Test('Roger Roe', 'driver'),
+            new Test('Kim Smith', 'teacher')
+    ]
 
     @Autowired
     private JwtUtil jwtUtil
@@ -33,8 +46,19 @@ class UserController {
     @Autowired
     private UserService userService
 
+    @GetMapping("/test")
+    String test() {
+        return 'test'
+    }
+
     @GetMapping
     List<User> welcome() {
+        List<User> users = userService.findAll()
+        return users
+    }
+
+    @GetMapping("/users")
+    List<User> users() {
         List<User> users = userService.findAll()
         return users
     }
@@ -64,17 +88,12 @@ class UserController {
         return new JwtResponse(token)
     }
 
-    @GetMapping("/test")
-    String test() {
-        return 'test'
-    }
-
-    @GetMapping("/valid")
-    ResponseEntity valid(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return 'error'
+    @PostMapping("/addorUpdate")
+    public ResponseEntity<User> addorUpdate(@RequestBody @Valid User, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return 'error';
         }
-        return 'test'
+        ResponseEntity.ok().body(test)
     }
 
     @PostMapping("/registration")
