@@ -2,7 +2,7 @@ version: '2'
 
 services:
   groovy-app:
-    container_name: test14-app 
+    container_name: test14-app
     build: ./
     depends_on:
       - database
@@ -11,7 +11,7 @@ services:
 
   database:
     image: mongo
-    container_name: database-test14
+    container_name: test14-database
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret

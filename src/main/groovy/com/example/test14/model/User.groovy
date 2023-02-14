@@ -5,12 +5,15 @@ import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+import javax.validation.constraints.NotEmpty
+
 
 @Document
 class User implements UserDetails {
 
     @Id
     private String id
+    @NotEmpty(message = "Name should not be empty")
     private String username
     private String password
 

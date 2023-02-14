@@ -1,8 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://admin:secret@database-test14:27017/test1?authSource=admin
-      database: test14-app
+      uri: mongodb://admin:secret@test14-database:27017/test14-app?authSource=admin
+      #database: test14-app
 springdoc:
   api-docs:
     path: /openapi

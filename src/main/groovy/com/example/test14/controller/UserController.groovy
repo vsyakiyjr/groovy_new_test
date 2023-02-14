@@ -14,10 +14,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 class UserController {
@@ -62,8 +64,24 @@ class UserController {
         return new JwtResponse(token)
     }
 
+    @GetMapping("/test")
+    String test() {
+        return 'test'
+    }
+
+    @GetMapping("/valid")
+    ResponseEntity valid(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return 'error'
+        }
+        return 'test'
+    }
+
     @PostMapping("/registration")
-    ResponseEntity registration(@RequestBody UserDto userDto) throws Exception {
+    ResponseEntity registration(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            return 'error'
+        }
         if (userService.findUserByUsername(userDto.getUsername()) != null) {
             throw new Exception("This user already exists")
         }
