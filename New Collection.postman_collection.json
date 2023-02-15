@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"www\",\r\n  \"password\": \"www\"\r\n}",
+					"raw": "{\r\n  \"username\": \"eee\",\r\n  \"password\": \"eee\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,15 +70,12 @@
 		},
 		{
 			"name": "http://192.168.99.100:8080/notes/",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+					"raw": "{\r\n  \"name\": \"string\",\r\n  \"text\": \"string\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,6 +172,50 @@
 					"path": [
 						"like",
 						"notes",
+						"63eb7c7f2752ef79e2114eaf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://192.168.99.100:8080/like/notes/remove/63eb7c7f2752ef79e2114eaf",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3d3ciLCJleHAiOjE2NzY0NzA3MjgsImlhdCI6MTY3NjQ1MjcyOH0.uffLnSPCKn_XDrKHKR5U5oKgN6hvyH4OFRwswbYjsbmIak3l1CvNf1xpUuLvHtkqYuOPn__S2ZHqnCGdJ-4lyQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"test\",\r\n  \"password\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.99.100:8080/like/notes/remove/63eb7c7f2752ef79e2114eaf",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"99",
+						"100"
+					],
+					"port": "8080",
+					"path": [
+						"like",
+						"notes",
+						"remove",
 						"63eb7c7f2752ef79e2114eaf"
 					]
 				}
