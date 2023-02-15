@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 
 @Document
@@ -13,7 +15,10 @@ class User implements UserDetails {
 
     @Id
     private String id
+
     @NotEmpty(message = "Name should not be empty")
+    @NotNull(message = "Name should not be null")
+    @Size(min = 2, max = 3, message = "Name should be between 2 and 3")
     private String username
     private String password
 

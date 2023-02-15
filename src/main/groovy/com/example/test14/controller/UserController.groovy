@@ -98,11 +98,14 @@ class UserController {
     }
 
     @PostMapping("/registration")
-    ResponseEntity registration(@RequestBody UserDto userDto) throws Exception {
+    ResponseEntity registration(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) throws Exception {
+        if(bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Name should not be empty")
+        }
         if (userService.findUserByUsername(userDto.getUsername()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user already exists")
         }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()))
-        return userService.saveUser(userDto)
+        return ResponseEntity.status(200).body(userService.saveUser(userDto))
     }
 }
