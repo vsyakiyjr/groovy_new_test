@@ -8,6 +8,7 @@ import com.example.test14.service.UserService
 import com.example.test14.utils.security.JwtUtil
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -97,14 +98,11 @@ class UserController {
     }
 
     @PostMapping("/registration")
-    ResponseEntity registration(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors()) {
-            return 'error'
-        }
+    ResponseEntity registration(@RequestBody UserDto userDto) throws Exception {
         if (userService.findUserByUsername(userDto.getUsername()) != null) {
-            throw new Exception("This user already exists")
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user already exists")
         }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()))
-        userService.saveUser(userDto)
+        return userService.saveUser(userDto)
     }
 }
